@@ -28,7 +28,7 @@ function LivePreviewFrame({ url, title }: { url: string; title: string }) {
 
   if (embeddable === false) {
     return (
-      <div className="flex aspect-video w-full shrink-0 flex-col items-center justify-center gap-3 border-b border-border bg-surface-2 px-6 text-center">
+      <div className="flex aspect-video w-full shrink-0 flex-col items-center justify-center gap-4 border-b border-border bg-surface-2 px-6 text-center">
         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
           <ShieldAlert size={18} />
         </span>
@@ -37,6 +37,15 @@ function LivePreviewFrame({ url, title }: { url: string; title: string }) {
           <code className="font-mono text-xs text-foreground/80">X-Frame-Options</code> header).
           Open it directly instead.
         </p>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-medium transition-transform duration-200 hover:scale-[1.03]"
+        >
+          Open website
+          <ArrowUpRight size={15} />
+        </a>
       </div>
     );
   }

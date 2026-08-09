@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Code2, Mail, Phone } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "./icons/BrandIcons";
 import { profile } from "@/lib/data";
 import { Reveal } from "./ui/Reveal";
@@ -63,6 +63,15 @@ export function Contact() {
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground/80 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
               >
                 <LinkedInIcon className="h-4.5 w-4.5" />
+              </a>
+              <a
+                href={profile.leetcode}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LeetCode"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground/80 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
+              >
+                <Code2 className="h-4.5 w-4.5" />
               </a>
             </div>
           </div>

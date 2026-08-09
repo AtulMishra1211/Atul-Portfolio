@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
+import { loop } from "@/lib/data";
 import { Reveal, RevealItem, RevealStagger } from "./ui/Reveal";
-
-const LOOP = ["Build", "Break", "Learn", "Ship", "Repeat"];
 
 export function Philosophy() {
   return (
@@ -43,12 +42,12 @@ export function Philosophy() {
         </Reveal>
 
         <RevealStagger className="mt-12 flex flex-wrap items-center gap-x-2 gap-y-3" stagger={0.06}>
-          {LOOP.map((step, i) => (
+          {loop.map((step, i) => (
             <RevealItem key={step} className="flex items-center gap-2">
               <span className="font-mono text-sm sm:text-base tracking-wide text-foreground/80">
                 {step}
               </span>
-              {i < LOOP.length - 1 && (
+              {i < loop.length - 1 && (
                 <ArrowRight
                   size={14}
                   className="animate-pulse-soft text-primary"

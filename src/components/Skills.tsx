@@ -15,10 +15,10 @@ export function Skills() {
           description="The languages, frameworks and tools I reach for to take an idea from a blank file to production."
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((group, i) => (
             <Reveal key={group.label} delay={i * 0.05}>
-              <div className="h-full rounded-2xl surface-card p-6 transition-[box-shadow,border-color] duration-300 hover:border-border-strong">
+              <div className="rounded-2xl surface-card p-6 transition-[box-shadow,border-color] duration-300 hover:border-border-strong">
                 <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                   {group.label}
                 </h3>

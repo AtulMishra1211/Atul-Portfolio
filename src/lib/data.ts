@@ -2,14 +2,21 @@ export const profile = {
   name: "Atul Mishra",
   role: "Full-Stack Engineer",
   tagline:
-    "Building fast, scalable web apps with React, Next.js & TypeScript — and shipping AI-powered features that people actually use.",
-  location: "India",
+    "Building fast, scalable web apps with React, Next.js & TypeScript and shipping AI-powered features that people actually use.",
+  location: "Banglore, India",
   phone: "9839468684",
   email: "atulm1341@gmail.com",
   linkedin: "https://www.linkedin.com/in/atul-mishra-754a601a5/",
   github: "https://github.com/AtulMishra1211",
+  leetcode: "https://leetcode.com/u/AtulMishra1211/",
   resumeUrl: "/Atul_Mishra_Resume.pdf",
+  photo: "/atul-2.png",
 };
+
+export const loop = ["Build", "Break", "Learn", "Ship", "Repeat"];
+
+export const craftStatement =
+  "Product-first thinking, modern interface systems, and motion details that keep every screen feeling fresh.";
 
 export type Experience = {
   role: string;
@@ -24,14 +31,15 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     role: "SDE 1",
-    company: "Logipod",
+    company: "Logipod Logistics",
     period: "July 2026 — Present",
     current: true,
     points: [
-      "Working on Sharkship, an internal product, owning the customer-facing panel — contributed UI improvements including shipping label customisation features using React.js.",
+      "Built and shipped the Logipod marketing website end-to-end — a Sanity CMS blog, an automated email + Google Sheets lead pipeline, and a custom Framer Motion/WebGL animation system across 10+ production routes.",
+      "Working on Sharkship, an internal logistics product — building both the customer and admin panels, with a backend-heavy focus on PostgreSQL, revenue calculation, and the seller wallet system.",
       "Actively building and learning AI agent development as part of the team's AI initiatives, implementing agentic workflows in production.",
     ],
-    tags: ["React.js", "AI Agents", "Product"],
+    tags: ["Next.js", "React.js", "Nest.js", "TypeScript", "PostgreSQL", "AWS Cloud", "AI Agents"],
   },
   {
     role: "SDE 1",
@@ -76,14 +84,39 @@ export type Project = {
   liveUrl?: string;
   codeUrl?: string;
   featured?: boolean;
+  /** Shown as a muted status label when the project isn't featured. */
+  kind?: string;
 };
 
 export const projects: Project[] = [
   {
+    title: "Logipod Website",
+    period: "2026",
+    description: "Full-stack marketing platform for Logipod — CMS blog, lead pipeline, and WebGL animations.",
+    points: [
+      "Built a Sanity CMS blog and 10+ production marketing routes with Next.js & TypeScript.",
+      "Shipped an automated email + Google Sheets lead pipeline and a custom Framer Motion/WebGL animation system, including infinite photo marquees and an interactive 3D globe.",
+    ],
+    tags: ["Next.js", "TypeScript", "Sanity CMS", "Framer Motion", "WebGL"],
+    liveUrl: "https://temp.logipod.in",
+    featured: true,
+  },
+  {
+    title: "Sharkship",
+    period: "July 2026 — Present",
+    description: "Customer + admin panels for Logipod's logistics platform, with a PostgreSQL-heavy backend.",
+    points: [
+      "Building both the customer and admin panels, working across frontend and backend.",
+      "Designed revenue calculation logic and the seller wallet system on PostgreSQL.",
+    ],
+    tags: ["Next.js", "React.js", "Node.js", "PostgreSQL"],
+    liveUrl: "https://app.sharkship.in/sign-in",
+    kind: "Internal tool",
+  },
+  {
     title: "Kazam EV Tech Website",
     period: "October 2025 — Present",
-    description:
-      "15+ product & solution pages for a B2C EV charging platform, plus an interactive quiz that routes visitors to the right product.",
+    description: "15+ product & solution pages for a B2C EV charging platform, plus an interactive quiz.",
     points: [
       "Owned design & development of 15+ product pages (Careers, About Us, LEVDC Pro, Zip, Zoom, Zap Pro, CMS, BSMS, RMS, Energy Intelligence, Roaming, Revenue Management, Charger Health Checkup) and key solution pages.",
       "Built the Kazam Solution Finder, a multi-step interactive quiz that routes visitors to the right product based on use-case (CPO, fleet, leasing, energy management), reducing sales-team triage on inbound leads.",
@@ -96,26 +129,25 @@ export const projects: Project[] = [
   {
     title: "SaaS Landing Page — Animated",
     period: "August 2025",
-    description:
-      "A fully responsive SaaS landing page with parallax scroll animations, scoring 95+ on Lighthouse.",
+    description: "A fully responsive SaaS landing page with parallax animations, scoring 95+ on Lighthouse.",
     points: [
       "Developed a fully responsive SaaS landing page (Next.js 14, Framer Motion) with parallax animations, achieving a 95+ Lighthouse score.",
     ],
     tags: ["Next.js", "Framer Motion", "GSAP", "Tailwind CSS"],
     liveUrl: "https://saas-landing-page-animated.vercel.app/",
     codeUrl: "https://github.com/AtulMishra1211/SaasLandingPage-Animated",
-    featured: true,
+    kind: "Side project",
   },
   {
     title: "MOMATO — Restaurant Discovery App",
     period: "November 2024",
-    description:
-      "A responsive frontend for restaurant discovery and real-time menu search, powered by the Swiggy API.",
+    description: "A responsive frontend for restaurant discovery and menu search via the Swiggy API.",
     points: [
       "Developed a responsive frontend enabling restaurant discovery and real-time menu search using the Swiggy API.",
     ],
     tags: ["React.js", "JavaScript", "Tailwind CSS"],
     codeUrl: "https://github.com/AtulMishra1211/momato",
+    kind: "Side project",
   },
 ];
 
@@ -125,7 +157,7 @@ export type SkillGroup = {
 };
 
 export const skills: SkillGroup[] = [
-  { label: "Languages", skills: ["JavaScript", "TypeScript", "C", "C++"] },
+  { label: "Languages", skills: ["JavaScript", "TypeScript", "Java", "Python", "C", "C++"] },
   {
     label: "Frontend",
     skills: [
@@ -135,27 +167,64 @@ export const skills: SkillGroup[] = [
       "Context API",
       "Tailwind CSS",
       "Framer Motion",
+      "GSAP",
+      "WebGL",
       "HTML5",
       "CSS3",
     ],
   },
   {
     label: "Backend & Database",
-    skills: ["Node.js", "Express.js", "REST APIs", "MongoDB", "SQL"],
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Nest.js",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "Sanity CMS",
+      "SQL",
+      "AWS",
+    ],
   },
-  { label: "Tools", skills: ["Git", "GitHub", "Postman", "VS Code"] },
+  { label: "Tools", skills: ["Git", "GitHub", "Postman", "VS Code", "SEO"] },
+  {
+    label: "AI-Native Development",
+    skills: ["AI Agents", "Claude Code", "GitHub Copilot", "RAG"],
+  },
   {
     label: "CS Fundamentals",
     skills: ["Data Structures & Algorithms", "OOP", "Operating Systems", "Computer Networks", "DBMS"],
   },
 ];
 
-export const education = {
-  school: "Madan Mohan Malaviya University of Technology",
-  degree: "B.Tech — Electronics and Communication Engineering",
-  cgpa: "7.91 / 10",
-  period: "Oct 2021 — May 2025",
+export type Education = {
+  school: string;
+  degree: string;
+  score: string;
+  period: string;
 };
+
+export const education: Education[] = [
+  {
+    school: "Madan Mohan Malaviya University of Technology",
+    degree: "B.Tech — Electronics and Communication Engineering",
+    score: "CGPA: 7.91 / 10",
+    period: "Oct 2021 — May 2025",
+  },
+  {
+    school: "CBSE Board — Intermediate (Class XII)",
+    degree: "Senior Secondary",
+    score: "92.4%",
+    period: "2020",
+  },
+  {
+    school: "CBSE Board — High School (Class X)",
+    degree: "Secondary",
+    score: "92.64%",
+    period: "2018",
+  },
+];
 
 export const achievements: string[] = [
   "1st Position at Codezilla by IEEE-MMMUT (500+ participants)",
@@ -164,8 +233,8 @@ export const achievements: string[] = [
 ];
 
 export const stats = [
-  { value: "1+", label: "Years Experience" },
-  { value: "15+", label: "Production Pages Shipped" },
+  { value: "1.5+", label: "Years Experience" },
+  { value: "4", label: "Production Projects Shipped" },
   { value: "50+", label: "Bugs Fixed in Prod" },
   { value: "500+", label: "DSA Problems Solved" },
 ];

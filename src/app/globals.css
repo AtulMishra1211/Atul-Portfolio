@@ -111,6 +111,12 @@ body {
     0 20px 60px -24px rgba(62, 99, 176, 0.22);
 }
 
+/* Deliberate, visible frame — used sparingly (e.g. the hero portrait) */
+.portrait-frame {
+  border-width: 2px;
+  border-color: var(--foreground);
+}
+
 /* Minimal chrome for nav / small floating panels */
 .panel {
   background: rgba(255, 255, 255, 0.72);

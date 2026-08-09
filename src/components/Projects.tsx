@@ -1,6 +1,7 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Eye } from "lucide-react";
 import { useState } from "react";
 import { projects, type Project } from "@/lib/data";
 import { GitHubIcon } from "./icons/BrandIcons";
@@ -8,6 +9,131 @@ import { ProjectPreviewModal } from "./ProjectPreviewModal";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeading } from "./ui/SectionHeading";
 import { TiltCard } from "./ui/TiltCard";
+import { EASE } from "./ui/motion";
+
+const MAX_VISIBLE_TAGS = 4;
+
+function ProjectCard({
+  project,
+  index,
+  onPreview,
+}: {
+  project: Project;
+  index: number;
+  onPreview: (project: Project) => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const visibleTags = project.tags.slice(0, MAX_VISIBLE_TAGS);
+  const hiddenTagCount = project.tags.length - visibleTags.length;
+
+  return (
+    <Reveal delay={index * 0.05}>
+      <TiltCard className="group">
+        <div
+          className={`relative overflow-hidden rounded-2xl surface-card p-6 transition-[box-shadow,border-color] duration-300 ${
+            project.featured ? "ring-1 ring-primary/20" : ""
+          }`}
+        >
+          <div className="flex items-center justify-between gap-3">
+            {project.featured ? (
+              <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
+                Featured
+              </span>
+            ) : (
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-subtle">
+                {project.kind ?? "Project"}
+              </span>
+            )}
+            <span className="shrink-0 font-mono text-xs text-subtle">{project.period}</span>
+          </div>
+
+          <h3 className="mt-3 truncate text-[15px] font-medium text-foreground sm:text-base">
+            {project.title}
+          </h3>
+
+          <p className="mt-2 line-clamp-1 text-sm text-muted">{project.description}</p>
+
+          <div className="mt-4 flex min-h-16 flex-wrap content-start gap-2">
+            {visibleTags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-lg border border-border bg-surface-2 px-2.5 py-1 text-xs text-muted"
+              >
+                {tag}
+              </span>
+            ))}
+            {hiddenTagCount > 0 && (
+              <span className="rounded-lg border border-border bg-surface-2 px-2.5 py-1 text-xs text-subtle">
+                +{hiddenTagCount}
+              </span>
+            )}
+          </div>
+
+          <div className="mt-5 flex items-center justify-between gap-3">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/80 transition-colors duration-200 hover:text-foreground"
+            >
+              View details
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <div className="flex shrink-0 items-center gap-2">
+              {project.codeUrl && (
+                <a
+                  href={project.codeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${project.title} code`}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
+                >
+                  <GitHubIcon className="h-3.5 w-3.5" />
+                </a>
+              )}
+              {project.liveUrl && (
+                <button
+                  type="button"
+                  onClick={() => onPreview(project)}
+                  aria-label={`Preview ${project.title}`}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
+                >
+                  <Eye size={14} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <AnimatePresence initial={false}>
+            {expanded && (
+              <motion.div
+                key="details"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className="overflow-hidden"
+              >
+                <ul className="mt-5 space-y-2 border-t border-border pt-5">
+                  {project.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-sm leading-relaxed text-muted">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/70" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </TiltCard>
+    </Reveal>
+  );
+}
 
 export function Projects() {
   const [preview, setPreview] = useState<Project | null>(null);
@@ -21,107 +147,9 @@ export function Projects() {
           description="Production products and side projects — from full platforms shipped end-to-end to focused UI experiments."
         />
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid items-start gap-6 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
           {projects.map((project, i) => (
-            <Reveal
-              key={project.title}
-              delay={i * 0.06}
-              className={project.featured ? "md:col-span-2" : ""}
-            >
-              <TiltCard className="group h-full">
-                <div
-                  className={`relative h-full overflow-hidden rounded-2xl surface-card transition-[box-shadow,border-color] duration-300 ${
-                    project.featured ? "p-8 md:p-10" : "p-7 md:p-8"
-                  }`}
-                >
-                  {project.featured && (
-                    <span className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
-                  )}
-
-                  <div className="relative flex h-full flex-col">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        {project.featured && (
-                          <span className="mb-2 inline-block font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-                            Featured
-                          </span>
-                        )}
-                        <h3
-                          className={`font-semibold text-foreground ${
-                            project.featured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
-                          }`}
-                        >
-                          {project.title}
-                        </h3>
-                        <p className="mt-1.5 font-mono text-xs text-subtle">{project.period}</p>
-                      </div>
-                      <div className="flex shrink-0 gap-2">
-                        {project.codeUrl && (
-                          <a
-                            href={project.codeUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={`${project.title} code`}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
-                          >
-                            <GitHubIcon className="h-3.75 w-3.75" />
-                          </a>
-                        )}
-                        {project.liveUrl && (
-                          <button
-                            type="button"
-                            onClick={() => setPreview(project)}
-                            aria-label={`Preview ${project.title}`}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
-                          >
-                            <Eye size={15} />
-                          </button>
-                        )}
-                      </div>
-                    </div>
-
-                    <p className="mt-4 text-sm leading-relaxed text-muted md:text-[15px]">
-                      {project.description}
-                    </p>
-
-                    {project.featured && (
-                      <ul className="mt-4 space-y-2">
-                        {project.points.map((p) => (
-                          <li key={p} className="flex gap-3 text-sm leading-relaxed text-muted/90">
-                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/70" />
-                            <span>{p}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-lg border border-border bg-surface-2 px-2.5 py-1 text-xs text-muted"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {project.liveUrl && (
-                        <button
-                          type="button"
-                          onClick={() => setPreview(project)}
-                          className="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-primary transition-colors duration-200 hover:text-primary-strong"
-                        >
-                          <Eye size={13} />
-                          Quick look
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </Reveal>
+            <ProjectCard key={project.title} project={project} index={i} onPreview={setPreview} />
           ))}
         </div>
       </div>
