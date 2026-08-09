@@ -3,7 +3,7 @@ export const profile = {
   role: "Full-Stack Engineer",
   tagline:
     "Building fast, scalable web apps with React, Next.js & TypeScript and shipping AI-powered features that people actually use.",
-  location: "Banglore, India",
+  location: "Bangalore, India",
   phone: "9839468684",
   email: "atulm1341@gmail.com",
   linkedin: "https://www.linkedin.com/in/atul-mishra-754a601a5/",
