@@ -34,25 +34,24 @@ export function Philosophy() {
     <section id="philosophy" className="relative overflow-hidden px-6 py-24 md:py-32">
       <div
         aria-hidden
-        className="animate-float-slow pointer-events-none absolute -right-32 top-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl"
+        className="animate-float-slow pointer-events-none absolute -right-32 top-0 h-80 w-80 rounded-full bg-violet/12 blur-3xl"
       />
       <div
         aria-hidden
-        className="animate-float pointer-events-none absolute -left-24 bottom-10 h-64 w-64 rounded-full bg-primary/[0.08] blur-3xl"
+        className="animate-float pointer-events-none absolute -left-24 bottom-10 h-64 w-64 rounded-full bg-magenta/8 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16">
           <div>
             <Reveal>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-8 bg-primary/50" />
-                <span className="font-mono text-xs tracking-[0.2em] text-primary uppercase">
-                  How I think
-                </span>
+              <div className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em]">
+                <span className="text-subtle">01</span>
+                <span className="h-px w-10 bg-linear-to-r from-primary to-transparent" />
+                <span className="text-primary">How I think</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground">
+              <h2 className="text-chrome text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
                 More than a <span className="text-accent-gradient">stack.</span>
               </h2>
             </Reveal>
@@ -92,7 +91,7 @@ export function Philosophy() {
                     transition={{ duration: 0.2 }}
                     className="group flex items-start gap-4 rounded-2xl surface-card p-5 transition-colors duration-300 hover:border-border-strong"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary shadow-[0_0_20px_-6px_var(--primary)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                       <Icon size={18} />
                     </span>
                     <div>
@@ -111,14 +110,14 @@ export function Philosophy() {
         </div>
 
         <Reveal delay={0.15} className="mt-14 md:mt-16">
-          <div className="rounded-2xl surface-card px-5 py-5 sm:px-8">
+          <div className="neon-border rounded-2xl surface-card px-5 py-5 sm:px-8">
             <RevealStagger
               className="flex flex-wrap items-center justify-center gap-x-1 gap-y-3 sm:gap-x-2"
               stagger={0.06}
             >
               {loop.map((step, i) => (
                 <RevealItem key={step} className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="rounded-full border border-border bg-surface-2 px-3 py-1.5 font-mono text-xs sm:text-sm tracking-wide text-foreground/85 sm:px-4">
+                  <span className="rounded-full border border-primary/25 bg-primary/5 px-3 py-1.5 font-mono text-xs sm:text-sm tracking-wide text-foreground/85 sm:px-4">
                     {step}
                   </span>
                   {i < loop.length - 1 && (

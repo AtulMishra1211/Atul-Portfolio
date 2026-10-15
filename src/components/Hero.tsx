@@ -7,72 +7,67 @@ import { PortraitCard } from "./PortraitCard";
 import { profile, stats } from "@/lib/data";
 import { EASE } from "./ui/motion";
 
+
 const container: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+  hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
 };
+
+const SOCIALS = [
+  { href: profile.github, label: "GitHub", icon: <GitHubIcon className="h-4.5 w-4.5" /> },
+  { href: profile.linkedin, label: "LinkedIn", icon: <LinkedInIcon className="h-4.5 w-4.5" /> },
+  { href: profile.leetcode, label: "LeetCode", icon: <Code2 className="h-4.5 w-4.5" /> },
+];
 
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="relative flex min-h-screen flex-col justify-center px-6 pt-28 pb-16"
-    >
+    <section id="top" className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-28 pb-16">
       <motion.div
         initial="hidden"
         animate="visible"
         variants={container}
-        className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16"
+        className="relative mx-auto grid w-full max-w-6xl gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-16"
       >
         <div className="order-last lg:order-first">
           <motion.div
             variants={item}
-            className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs sm:text-sm text-muted"
+            className="panel mb-8 inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted sm:text-xs"
           >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-live" />
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-live" />
             </span>
-            Open to SDE-1 &amp; Full-Stack roles
+            Open to SDE &amp; Full-Stack roles
           </motion.div>
+
+          <motion.p variants={item} className="font-mono text-sm text-primary">
+            &gt; hello_world, I&apos;m
+          </motion.p>
 
           <motion.h1
             variants={item}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-semibold tracking-tight leading-[1.03] text-foreground"
+            className="text-chrome mt-2 text-5xl font-bold leading-[1.05] tracking-tighter whitespace-nowrap sm:text-6xl xl:text-7xl"
           >
             {profile.name}
           </motion.h1>
 
-          <motion.h2
-            variants={item}
-            className="mt-4 text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-accent-gradient"
-          >
-            {profile.role}
+          <motion.h2 variants={item} className="mt-6 text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+            Full Stack Developer
           </motion.h2>
 
-          <motion.p
-            variants={item}
-            className="mt-6 max-w-2xl text-base sm:text-lg text-muted leading-relaxed"
-          >
+          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             {profile.tagline}
-          </motion.p>
-
-          <motion.p
-            variants={item}
-            className="mt-4 font-mono text-xs sm:text-sm text-subtle tracking-wide"
-          >
-            React.js &middot; Next.js &middot; TypeScript &middot; Node.js / Express &middot; MongoDB
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="#projects"
-              className="group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium transition-transform duration-200 hover:scale-[1.03]"
+              className="btn-neon group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-transform duration-200 hover:scale-[1.04]"
             >
               View my work
               <ArrowUpRight
@@ -83,75 +78,63 @@ export function Hero() {
             <a
               href={profile.resumeUrl}
               download="Atul_Mishra_Resume.pdf"
-              className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-6 py-3 text-sm font-medium text-foreground transition-colors duration-200 hover:border-border-strong hover:bg-surface-2"
+              className="btn-ghost group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200"
             >
               Resume
               <Download size={16} className="transition-transform duration-200 group-hover:translate-y-0.5" />
             </a>
 
             <div className="ml-1 flex items-center gap-2">
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground/80 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
-              >
-                <GitHubIcon className="h-4.5 w-4.5" />
-              </a>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground/80 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
-              >
-                <LinkedInIcon className="h-4.5 w-4.5" />
-              </a>
-              <a
-                href={profile.leetcode}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LeetCode"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground/80 transition-colors duration-200 hover:border-border-strong hover:text-foreground"
-              >
-                <Code2 className="h-4.5 w-4.5" />
-              </a>
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="btn-ghost inline-flex h-11 w-11 items-center justify-center rounded-full text-foreground/80 transition-all duration-200 hover:text-primary"
+                >
+                  {s.icon}
+                </a>
+              ))}
             </div>
           </motion.div>
 
           <motion.div
             variants={item}
-            className="mt-20 grid grid-cols-2 gap-6 sm:grid-cols-4 border-t border-border pt-8"
+            className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4"
           >
             {stats.map((s) => (
-              <div key={s.label}>
-                <div className="text-3xl sm:text-4xl font-semibold text-foreground">{s.value}</div>
-                <div className="mt-1 text-xs sm:text-sm text-muted">{s.label}</div>
+              <div key={s.label} className="surface-card hud-corners rounded-2xl px-4 py-4 transition-all duration-300">
+                <div className="text-accent-gradient text-3xl font-bold sm:text-4xl">{s.value}</div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.15em] text-subtle sm:text-[11px]">
+                  {s.label}
+                </div>
               </div>
             ))}
           </motion.div>
         </div>
 
-        <motion.div variants={item} className="order-first lg:order-last">
+        <motion.div variants={item} className="order-first py-6 lg:order-last">
           <PortraitCard />
         </motion.div>
       </motion.div>
 
       <motion.a
-        href="#experience"
-        aria-label="Scroll to experience"
+        href="#philosophy"
+        aria-label="Scroll down"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-subtle"
+        transition={{ delay: 1.4, duration: 0.6 }}
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-subtle"
       >
-        <motion.div
+        Scroll
+        <motion.span
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ArrowDown size={18} />
-        </motion.div>
+          <ArrowDown size={16} className="text-primary" />
+        </motion.span>
       </motion.a>
     </section>
   );

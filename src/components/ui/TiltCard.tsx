@@ -8,14 +8,14 @@ import {
 } from "framer-motion";
 import type { ReactNode } from "react";
 
-const MAX_TILT = 3.5;
-
 export function TiltCard({
   children,
   className,
+  maxTilt = 6,
 }: {
   children: ReactNode;
   className?: string;
+  maxTilt?: number;
 }) {
   const reduceMotion = useReducedMotion();
 
@@ -24,7 +24,7 @@ export function TiltCard({
   const glowX = useSpring(50, { stiffness: 200, damping: 26 });
   const glowY = useSpring(50, { stiffness: 200, damping: 26 });
 
-  const glowBackground = useMotionTemplate`radial-gradient(360px circle at ${glowX}% ${glowY}%, var(--primary-soft), transparent 70%)`;
+  const glowBackground = useMotionTemplate`radial-gradient(420px circle at ${glowX}% ${glowY}%, rgba(34, 211, 238, 0.14), rgba(167, 139, 250, 0.06) 45%, transparent 70%)`;
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (reduceMotion) return;
@@ -32,8 +32,8 @@ export function TiltCard({
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;
 
-    rotateY.set((px - 0.5) * MAX_TILT * 2);
-    rotateX.set(-(py - 0.5) * MAX_TILT * 2);
+    rotateY.set((px - 0.5) * maxTilt * 2);
+    rotateX.set(-(py - 0.5) * maxTilt * 2);
     glowX.set(px * 100);
     glowY.set(py * 100);
   }
@@ -47,16 +47,17 @@ export function TiltCard({
     <motion.div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={reduceMotion ? undefined : { y: -4 }}
+      whileHover={reduceMotion ? undefined : { y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
       style={{
         rotateX: reduceMotion ? 0 : rotateX,
         rotateY: reduceMotion ? 0 : rotateY,
-        transformPerspective: 900,
+        transformPerspective: 1000,
+        transformStyle: "preserve-3d",
       }}
       className={className}
     >
-      <div className="relative h-full">
+      <div className="relative h-full rounded-2xl" style={{ transformStyle: "preserve-3d" }}>
         {!reduceMotion && (
           <motion.div
             aria-hidden

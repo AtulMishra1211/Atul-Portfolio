@@ -64,7 +64,7 @@ export function Modal({
           <div
             role="presentation"
             onClick={onClose}
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
           />
 
           <motion.div
@@ -75,7 +75,7 @@ export function Modal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="surface-card relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl sm:max-h-[720px]"
+            className="surface-card neon-border relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl sm:max-h-[720px]"
           >
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <h3 id="modal-title" className="text-sm font-semibold text-foreground">
@@ -86,7 +86,7 @@ export function Modal({
                 type="button"
                 onClick={onClose}
                 aria-label="Close preview"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted transition-colors duration-200 hover:border-border-strong hover:text-foreground"
+                className="btn-ghost inline-flex h-8 w-8 items-center justify-center rounded-full text-muted transition-all duration-200 hover:text-primary"
               >
                 <X size={16} />
               </button>

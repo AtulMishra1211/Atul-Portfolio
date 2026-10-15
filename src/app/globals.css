@@ -1,30 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Soft misty-white canvas — never pure white */
-  --background: #f6f8fc;
+  color-scheme: dark;
 
-  /* Tonal layers: each one step "up" from the canvas */
-  --surface: #ffffff;
-  --surface-2: #eef2f9;
-  --surface-3: #e4eaf4;
+  /* Deep-space canvas */
+  --background: #04050b;
+
+  /* Glass tonal layers */
+  --surface: rgba(18, 22, 40, 0.62);
+  --surface-2: rgba(28, 34, 60, 0.55);
+  --surface-3: rgba(40, 48, 82, 0.6);
 
   /* Text */
-  --foreground: #101a2e;
-  --muted: #4b586e;
-  --subtle: #6b7690;
+  --foreground: #e9edff;
+  --muted: #a3acc9;
+  --subtle: #6f7898;
 
-  /* Misty-blue accent, single hue, two intensities */
-  --primary: #3e63b0;
-  --primary-strong: #244485;
-  --primary-soft: rgba(62, 99, 176, 0.08);
+  /* Neon accents: cyan primary, violet + magenta secondaries */
+  --primary: #22d3ee;
+  --primary-strong: #67e8f9;
+  --primary-soft: rgba(34, 211, 238, 0.12);
+  --violet: #a78bfa;
+  --magenta: #f472b6;
 
-  /* Low-opacity navy borders — almost invisible on the canvas */
-  --border: rgba(16, 26, 46, 0.08);
-  --border-strong: rgba(16, 26, 46, 0.16);
+  /* Hairline borders */
+  --border: rgba(148, 163, 255, 0.12);
+  --border-strong: rgba(148, 163, 255, 0.26);
 
-  /* Status accent (semantic "live/current", not brand) */
-  --live: #12875c;
+  --live: #34d399;
 }
 
 @theme inline {
@@ -37,6 +40,8 @@
   --color-subtle: var(--subtle);
   --color-primary: var(--primary);
   --color-primary-strong: var(--primary-strong);
+  --color-violet: var(--violet);
+  --color-magenta: var(--magenta);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-live: var(--live);
@@ -60,8 +65,8 @@ body {
 }
 
 ::selection {
-  background: var(--primary-soft);
-  color: var(--foreground);
+  background: rgba(34, 211, 238, 0.3);
+  color: #fff;
 }
 
 ::-webkit-scrollbar {
@@ -71,12 +76,9 @@ body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
+  background: linear-gradient(var(--primary), var(--violet));
   border-radius: 999px;
-  border: 2px solid var(--background);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  border: 3px solid var(--background);
 }
 
 :focus-visible {
@@ -86,49 +88,161 @@ body {
 }
 
 .text-accent-gradient {
-  background: linear-gradient(100deg, var(--primary-strong) 0%, var(--primary) 65%);
+  background: linear-gradient(100deg, var(--primary) 0%, var(--violet) 55%, var(--magenta) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 8s ease-in-out infinite;
+}
+
+.text-chrome {
+  background: linear-gradient(180deg, #ffffff 0%, #c7cff5 55%, #7c86b3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Resting card surface: one tonal step above the section it sits on */
+/* Glass card with a soft neon rim */
 .surface-card {
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  position: relative;
+  background: linear-gradient(160deg, rgba(30, 36, 66, 0.55) 0%, rgba(10, 12, 26, 0.7) 100%);
   border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.6) inset,
-    0 1px 2px rgba(16, 26, 46, 0.04),
-    0 16px 32px -18px rgba(16, 26, 46, 0.14);
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 50px -24px rgba(0, 0, 0, 0.8);
 }
 
 .surface-card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(34, 211, 238, 0.35);
   box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
-    0 24px 48px -20px rgba(16, 26, 46, 0.18),
-    0 0 0 1px rgba(62, 99, 176, 0.08),
-    0 20px 60px -24px rgba(62, 99, 176, 0.22);
+    0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+    0 0 0 1px rgba(34, 211, 238, 0.12),
+    0 24px 60px -20px rgba(34, 211, 238, 0.25),
+    0 30px 80px -30px rgba(167, 139, 250, 0.35);
 }
 
-/* Deliberate, visible frame — used sparingly (e.g. the hero portrait) */
-.portrait-frame {
-  border-width: 2px;
-  border-color: var(--foreground);
+/* Animated conic border, for hero-level elements */
+.neon-border {
+  position: relative;
+  isolation: isolate;
+}
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    var(--primary),
+    var(--violet),
+    var(--magenta),
+    transparent 60%,
+    var(--primary)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 6s linear infinite;
 }
 
-/* Minimal chrome for nav / small floating panels */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
 .panel {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(8, 10, 22, 0.6);
   border: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.btn-neon {
+  position: relative;
+  background: linear-gradient(100deg, var(--primary), var(--violet));
+  color: #04050b;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+    0 10px 30px -8px rgba(34, 211, 238, 0.6),
+    0 10px 40px -10px rgba(167, 139, 250, 0.6);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-strong);
+  color: var(--foreground);
+  backdrop-filter: blur(12px);
+}
+.btn-ghost:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 0 0 24px -6px rgba(34, 211, 238, 0.5);
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
 }
 
 .bg-grid {
-  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(34, 211, 238, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(167, 139, 250, 0.12) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+/* Receding synthwave floor */
+.grid-floor {
+  transform: perspective(600px) rotateX(70deg);
+  transform-origin: center top;
+  animation: floor-scroll 3s linear infinite;
+}
+
+@keyframes floor-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 64px;
+  }
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes float {
@@ -176,6 +290,29 @@ body {
   animation: marquee 34s linear infinite;
 }
 
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(400%);
+  }
+}
+
+.animate-scan {
+  animation: scan 4.5s ease-in-out infinite;
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit 16s linear infinite;
+}
+
 .skill-card {
   position: relative;
   isolation: isolate;
@@ -191,13 +328,36 @@ body {
   transition: opacity 0.4s ease;
   background: radial-gradient(
     280px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(62, 99, 176, 0.16),
+    rgba(34, 211, 238, 0.18),
     transparent 70%
   );
 }
 
 .skill-card:hover::before {
   opacity: 1;
+}
+
+/* HUD corner brackets */
+.hud-corners {
+  position: relative;
+}
+.hud-corners::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 8px;
+  border-radius: inherit;
+  background:
+    linear-gradient(var(--primary), var(--primary)) top left / 14px 1px,
+    linear-gradient(var(--primary), var(--primary)) top left / 1px 14px,
+    linear-gradient(var(--primary), var(--primary)) top right / 14px 1px,
+    linear-gradient(var(--primary), var(--primary)) top right / 1px 14px,
+    linear-gradient(var(--primary), var(--primary)) bottom left / 14px 1px,
+    linear-gradient(var(--primary), var(--primary)) bottom left / 1px 14px,
+    linear-gradient(var(--primary), var(--primary)) bottom right / 14px 1px,
+    linear-gradient(var(--primary), var(--primary)) bottom right / 1px 14px;
+  background-repeat: no-repeat;
+  opacity: 0.55;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -207,7 +367,12 @@ body {
   .animate-float,
   .animate-float-slow,
   .animate-pulse-soft,
-  .animate-marquee {
+  .animate-marquee,
+  .animate-scan,
+  .animate-orbit,
+  .grid-floor,
+  .text-accent-gradient,
+  .neon-border::before {
     animation: none !important;
   }
 }

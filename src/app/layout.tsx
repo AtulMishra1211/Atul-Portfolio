@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Background } from "@/components/ui/Background";
+import { CursorGlow, ScrollProgress } from "@/components/ui/Effects";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,6 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://atulmishra.dev";
+
+export const viewport: Viewport = {
+  themeColor: "#04050b",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -53,6 +59,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col relative">
         <Background />
+        <ScrollProgress />
+        <CursorGlow />
         {children}
       </body>
     </html>

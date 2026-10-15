@@ -50,18 +50,23 @@ export function Nav() {
       <div className="mx-auto max-w-6xl px-6">
         <div
           className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300 ${
-            scrolled ? "panel shadow-lg shadow-slate-900/6" : "border border-transparent"
+            scrolled ? "panel shadow-[0_10px_40px_-12px_rgba(34,211,238,0.25)]" : "border border-transparent"
           }`}
         >
           <a
             href="#top"
-            className="font-mono text-sm font-semibold tracking-tight text-foreground"
+            className="group flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-foreground"
           >
-            {profile.name
-              .split(" ")
-              .map((w) => w[0])
-              .join("")}
-            <span className="text-primary">.</span>
+            <span className="flex h-7 w-7 rotate-45 items-center justify-center rounded-md border border-primary/50 bg-primary/10 shadow-[0_0_14px_-2px_var(--primary)] transition-transform duration-500 group-hover:rotate-[225deg]">
+              <span className="h-2 w-2 rounded-sm bg-primary" />
+            </span>
+            <span>
+              {profile.name
+                .split(" ")
+                .map((w) => w[0])
+                .join("")}
+              <span className="text-primary">.</span>
+            </span>
           </a>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -78,7 +83,7 @@ export function Nav() {
                 {active === link.href && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-primary/10 border border-primary/20"
+                    className="absolute inset-0 rounded-full border border-primary/30 bg-primary/10 shadow-[0_0_16px_-4px_var(--primary)]"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -90,7 +95,7 @@ export function Nav() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center rounded-full bg-foreground text-background text-sm font-medium px-4 py-2 transition-transform duration-200 hover:scale-[1.03]"
+              className="btn-neon hidden items-center rounded-full px-4 py-2 text-sm font-semibold transition-transform duration-200 hover:scale-[1.04] sm:inline-flex"
             >
               Let&apos;s talk
             </a>
@@ -113,7 +118,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="mx-6 mt-2 rounded-2xl border border-border bg-background/95 p-3 shadow-xl shadow-slate-900/10 backdrop-blur-xl md:hidden"
+            className="mx-6 mt-2 rounded-2xl border border-border bg-background/95 p-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.9)] backdrop-blur-xl md:hidden"
           >
             {LINKS.map((link) => (
               <a

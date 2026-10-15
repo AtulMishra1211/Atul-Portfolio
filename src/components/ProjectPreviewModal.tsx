@@ -41,7 +41,7 @@ function LivePreviewFrame({ url, title }: { url: string; title: string }) {
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-medium transition-transform duration-200 hover:scale-[1.03]"
+          className="inline-flex items-center gap-2 btn-neon rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-200 hover:scale-[1.03]"
         >
           Open website
           <ArrowUpRight size={15} />
@@ -93,7 +93,7 @@ export function ProjectPreviewModal({
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-lg border border-border bg-surface-2 px-2.5 py-1 text-xs text-muted"
+                className="chip rounded-md px-2.5 py-1 font-mono text-[11px]"
               >
                 {tag}
               </span>
@@ -107,7 +107,7 @@ export function ProjectPreviewModal({
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-medium transition-transform duration-200 hover:scale-[1.03]"
+              className="inline-flex items-center gap-2 btn-neon rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-200 hover:scale-[1.03]"
             >
               Open live site
               <ArrowUpRight size={15} />
@@ -118,7 +118,7 @@ export function ProjectPreviewModal({
               href={project.codeUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-2 px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-200 hover:border-border-strong"
+              className="inline-flex items-center gap-2 btn-ghost rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200"
             >
               <GitHubIcon className="h-3.75 w-3.75" />
               View code

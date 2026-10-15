@@ -34,12 +34,16 @@ export const experience: Experience[] = [
     company: "Logipod Logistics",
     period: "July 2026 — Present",
     current: true,
+    companyUrl: "https://logipod.in",
     points: [
-      "Built and shipped the Logipod marketing website end-to-end — a Sanity CMS blog, an automated email + Google Sheets lead pipeline, and a custom Framer Motion/WebGL animation system across 10+ production routes.",
-      "Working on Sharkship, an internal logistics product — building both the customer and admin panels, with a backend-heavy focus on PostgreSQL, revenue calculation, and the seller wallet system.",
-      "Actively building and learning AI agent development as part of the team's AI initiatives, implementing agentic workflows in production.",
+      "Building Sharkship Cargo, a B2B courier aggregator, from scratch on a Node.js microservices architecture, owning seller onboarding, order creation, shipment lifecycle, payments integration, seller wallet, and revenue logic.",
+      "Integrated with courier partners including Amazon ATS, Delhivery, Shadowfax, and India Post through REST APIs, and implemented a Delhivery webhook to automatically capture and process weight disputes.",
+      "Built scheduled cron jobs to sync shipment status and tracking from courier partners, and to generate daily order-dump summaries and operations-team reports, replacing manual data pulls.",
+      "Launched the Logipod Website with a Sanity CMS blog, automated lead pipeline, and Framer Motion/WebGL animations across 10+ routes.",
+      "Own the customer and admin panels for Sharkship, the company's separate B2C courier aggregator, with a backend-heavy focus on PostgreSQL, revenue calculation logic, and the seller wallet system.",
+      "Implementing agentic AI workflows in production as part of the team's AI initiatives, cutting manual efforts by 30%.",
     ],
-    tags: ["Next.js", "React.js", "Nest.js", "TypeScript", "PostgreSQL", "AWS Cloud", "AI Agents"],
+    tags: ["Node.js", "Microservices", "Next.js", "TypeScript", "PostgreSQL", "REST APIs", "Cron Jobs", "AWS Cloud", "AI Agents"],
   },
   {
     role: "SDE 1",
@@ -98,20 +102,33 @@ export const projects: Project[] = [
       "Shipped an automated email + Google Sheets lead pipeline and a custom Framer Motion/WebGL animation system, including infinite photo marquees and an interactive 3D globe.",
     ],
     tags: ["Next.js", "TypeScript", "Sanity CMS", "Framer Motion", "WebGL"],
-    liveUrl: "https://temp.logipod.in",
+    liveUrl: "https://logipod.in",
+    featured: true,
+  },
+  {
+    title: "Sharkship Cargo",
+    period: "2026 — Present",
+    description: "B2B courier aggregator built from scratch on a Node.js microservices architecture.",
+    points: [
+      "Owning seller onboarding, order creation, shipment lifecycle, payments integration, seller wallet, and revenue logic.",
+      "Integrated Amazon ATS, Delhivery, Shadowfax, and India Post via REST APIs, with a Delhivery webhook that automatically captures and processes weight disputes.",
+      "Scheduled cron jobs sync shipment status and tracking from courier partners and generate daily order-dump and operations reports.",
+    ],
+    tags: ["Node.js", "Microservices", "PostgreSQL", "REST APIs", "Webhooks", "Cron Jobs"],
+    liveUrl: "https://app-cargo.sharkship.in",
     featured: true,
   },
   {
     title: "Sharkship",
     period: "July 2026 — Present",
-    description: "Customer + admin panels for Logipod's logistics platform, with a PostgreSQL-heavy backend.",
+    description: "B2C courier aggregator — customer + admin panels with a PostgreSQL-heavy backend.",
     points: [
-      "Building both the customer and admin panels, working across frontend and backend.",
-      "Designed revenue calculation logic and the seller wallet system on PostgreSQL.",
+      "Own both the customer and admin panels, working across frontend and backend.",
+      "Built revenue calculation logic and the seller wallet system on PostgreSQL.",
     ],
     tags: ["Next.js", "React.js", "Node.js", "PostgreSQL"],
     liveUrl: "https://app.sharkship.in/sign-in",
-    kind: "Internal tool",
+    kind: "B2C platform",
   },
   {
     title: "Kazam EV Tech Website",
@@ -233,8 +250,8 @@ export const achievements: string[] = [
 ];
 
 export const stats = [
-  { value: "1.5+", label: "Years Experience" },
-  { value: "4", label: "Production Projects Shipped" },
+  { value: "2+", label: "Years Experience" },
+  { value: "5", label: "Production Projects Shipped" },
   { value: "50+", label: "Bugs Fixed in Prod" },
   { value: "500+", label: "DSA Problems Solved" },
 ];
